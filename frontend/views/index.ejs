@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Beauty Booking</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; }
+    form { max-width: 400px; }
+    input, select { width: 100%; padding: 8px; margin: 6px 0; }
+    button { padding: 10px 15px; background-color: #4CAF50; color: white; border: none; }
+  </style>
+</head>
+<body>
+  <h1>Đặt lịch dịch vụ làm đẹp</h1>
+  <form method="POST" action="/book">
+    <label for="user">Tên khách hàng:</label>
+    <input type="text" id="user" name="user" required>
+
+    <label for="service">Dịch vụ:</label>
+    <select id="service" name="service" required>
+      <option value="Facial">Facial</option>
+      <option value="Haircut">Haircut</option>
+      <option value="Manicure">Manicure</option>
+    </select>
+
+    <label for="time">Thời gian:</label>
+    <input type="datetime-local" id="time" name="time" required>
+
+    <button type="submit">Đặt lịch</button>
+  </form>
+</body>
+</html>
