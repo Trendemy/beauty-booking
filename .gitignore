@@ -143,3 +143,5 @@ vite.config.ts.timestamp-*
 # Ignore OS generated files
 .DS_Store
 pgdata/
+Dockerfile
+docker-compose.yaml

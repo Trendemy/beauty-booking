@@ -4,7 +4,7 @@
 
 - Hiểu cấu trúc source code ứng dụng gồm frontend (Node.js) và backend booking-service (Python Flask).
 - Viết Dockerfile cho từng service để đóng gói ứng dụng thành container.
-- Viết file `docker-compose.yml` để chạy đồng thời các service cùng với PostgreSQL và Redis.
+- Viết file `docker-compose.yaml` để chạy đồng thời các service cùng với PostgreSQL và Redis.
 - Triển khai và kiểm thử ứng dụng trên môi trường Docker.
 
 ## Phần 1: Tìm hiểu source code
@@ -36,7 +36,7 @@ Yêu cầu:
 - Expose port `5000`.
 - Chạy ứng dụng Node.js.
 
-## Phần 3: Viết docker-compose.yml
+## Phần 3: Viết docker-compose.yaml
 
 Yêu cầu:
 
@@ -62,7 +62,7 @@ Yêu cầu:
 ## Phần 6: Yêu cầu báo cáo
 
 - Nộp file Dockerfile cho từng service.
-- Nộp file `docker-compose.yml`.
+- Nộp file `docker-compose.yaml`.
 - Mô tả quá trình triển khai và các vấn đề gặp phải (nếu có).
 - Gợi ý cải tiến hoặc mở rộng ứng dụng (ví dụ: thêm service mới, thêm cache, sử dụng mạng Docker riêng, ...).
 

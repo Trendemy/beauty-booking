@@ -27,5 +27,19 @@
 
     <button type="submit">Đặt lịch</button>
   </form>
+  <script>
+    // Hàm lấy giá trị query param
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    const status = getQueryParam('status');
+    if (status === 'success') {
+      alert('Đặt lịch thành công! Cảm ơn bạn đã sử dụng dịch vụ.');
+    } else if (status === 'fail') {
+      alert('Đặt lịch thất bại. Vui lòng thử lại sau.');
+    }
+  </script>
 </body>
 </html>
