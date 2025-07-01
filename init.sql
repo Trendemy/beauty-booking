@@ -4,3 +4,4 @@ CREATE TABLE IF NOT EXISTS bookings (
   service VARCHAR(100),
   time TIMESTAMP
 );
+GRANT ALL ON TABLE bookings TO beautyuser;

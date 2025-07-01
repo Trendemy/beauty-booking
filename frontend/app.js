@@ -29,12 +29,14 @@ app.post('/book', async (req, res) => {
       time
     });
     if (response.status === 200) {
-      res.redirect('/');
+      // Redirect kèm query param báo thành công
+      res.redirect('/?status=success');
     } else {
-      res.status(500).send('Booking failed');
+      // Redirect kèm query param báo thất bại
+      res.redirect('/?status=fail');
     }
   } catch (error) {
-    res.status(500).send('Booking failed');
+    res.redirect('/?status=fail');
   }
 });
 
