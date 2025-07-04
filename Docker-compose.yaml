@@ -1,0 +1,51 @@
+#Postgres
+services:
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: Abcd@123
+      POSTGRES_DB: beauty_booking
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # Redis
+  redis:
+    image: redis:6.2-alpine
+    ports:
+      - "6379:6379"
+
+  #Booking-service
+  booking-service:
+    build:
+      context: ./booking-service
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: Abcd@123
+      POSTGRES_DB: beauty_booking
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - postgres
+      - redis
+
+  # Frontend service
+  frontend-service:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5002"
+    depends_on:
+      - booking-service
+
+volumes:
+  postgres_data:
