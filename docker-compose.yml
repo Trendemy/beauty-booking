@@ -1,0 +1,67 @@
+# build docker compose file for the project
+version: '3.8'
+
+services:
+  booking-service:
+    build:
+      context: .
+      dockerfile: docker/booking-service.Dockerfile
+    image: backend-service:3.9-slim
+    container_name: backend
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_ENV=development
+      - POSTGRES_DB=beauty-booking_db
+      - POSTGRES_USER=beautyuser
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_HOST=postgres_db
+      - POSTGRES_PORT=5432
+      - REDIS_HOST=redis
+    depends_on:
+      - postgres_db
+    
+  postgres_db:
+    image: postgres:14-alpine
+    container_name: postgres_db
+    environment:
+      - POSTGRES_DB=beauty-booking_db
+      - POSTGRES_USER=beautyuser
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "beautyuser", "-d", "beauty-booking_db"]
+      interval: 20s
+      timeout: 10s
+      retries: 5
+
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+    depends_on:
+      - postgres_db
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 20s
+      timeout: 10s
+      retries: 5
+
+  frontend-service:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    image: frontend-service:18-alpine
+    container_name: frontend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - booking-service
+
+volumes:
+  postgres_data:
